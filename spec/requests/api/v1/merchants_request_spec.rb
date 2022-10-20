@@ -8,7 +8,16 @@ describe "Merchants API" do
     get '/api/v1/merchants'
     expect(response).to be_successful
 
-    books_response = JSON.parse(response.body, symbolize_names: true)
+    merchants_response = JSON.parse(response.body, symbolize_names: true)
+
+    expect(merchants_response.count).to eq(3)
+
+    # expect(merchants.first).to have_key(:id) -- throws erros
+    expect(merchants.first[:id]).to be_an(Integer)
+    # expect(merchants.first).to have_key(:name)
+    expect(merchants.first[:name]).to be_a(String)
+
+    #not sure how necessary testing each iteration is like in example
   end
   
 end
