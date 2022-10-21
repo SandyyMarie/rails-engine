@@ -11,15 +11,11 @@ describe "Merchants API" do
     
     expect(merchants_response[:data].count).to eq(3)
 
-    # expect(merchants.first).to have_key(:id) -- throws erros
     expect(merchants.first[:id]).to be_an(Integer)
-    # expect(merchants.first).to have_key(:name)
     expect(merchants.first[:name]).to be_a(String)
-
-    #not sure how necessary testing each iteration is like in example
   end
 
-  it "can get one book by its id" do
+  it "can get one book by its id #show" do
     id = create(:merchant).id
 
     get "/api/v1/merchants/#{id}"
@@ -27,11 +23,15 @@ describe "Merchants API" do
     merchant = JSON.parse(response.body, symbolize_names: true)
     expect(response).to be_successful
 
-    # expect(merchant).to have_key(:name)
     expect(merchant[:data][:attributes][:name]).to be_a(String)
-
-    # expect(book).to have_key(:author)
     expect(merchant[:data][:type]).to eq("merchant")
+  end
+
+  it 'will sad path return error if merchant doesnt exist to #show' do
+    merchant = create(:merchant)
+    get "/api/v1/merchants/#{merchant.id + 1}" #purposeful bad id call
+
+    expect(response.status).to eq(404)
   end
 
   it 'can return the given merchants items' do
