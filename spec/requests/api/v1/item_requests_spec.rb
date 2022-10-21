@@ -82,4 +82,16 @@ describe "Items API" do
     expect(item.name).to_not eq(previous_name)
     expect(item.name).to eq("Snow Shovel")
   end
+
+  it 'can return a given items merchant data' do
+    merchant = create(:merchant)
+    item = create(:item, merchant_id: merchant.id)
+
+    get "/api/v1/items/#{merchant.id}/#{item.id}"
+    
+    expect(response).to be_successful
+
+    merchant_items = JSON.parse(response.body, symbolize_names: true)
+    merch_attr = merchant_items[:data].first[:attributes] #testing first merchant only
+  end
 end
