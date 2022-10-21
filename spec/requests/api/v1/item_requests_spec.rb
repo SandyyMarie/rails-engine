@@ -37,8 +37,8 @@ describe "Items API" do
   end
 
   it 'will sad path return error if item doesnt exist to #show' do
-    merchant = create(:merchant)
-    get "/api/v1/items/#{merchant.id + 1}" #purposeful bad id call
+    items = create(:merchant)
+    get "/api/v1/items/#{items.id + 1}" #purposeful bad id call
 
     expect(response.status).to eq(404)
   end

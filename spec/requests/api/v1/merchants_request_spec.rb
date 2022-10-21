@@ -15,7 +15,7 @@ describe "Merchants API" do
     expect(merchants.first[:name]).to be_a(String)
   end
 
-  it "can get one book by its id" do
+  it "can get one book by its id #show" do
     id = create(:merchant).id
 
     get "/api/v1/merchants/#{id}"
@@ -25,6 +25,13 @@ describe "Merchants API" do
 
     expect(merchant[:data][:attributes][:name]).to be_a(String)
     expect(merchant[:data][:type]).to eq("merchant")
+  end
+
+  it 'will sad path return error if merchant doesnt exist to #show' do
+    merchant = create(:merchant)
+    get "/api/v1/merchants/#{merchant.id + 1}" #purposeful bad id call
+
+    expect(response.status).to eq(404)
   end
 
   it 'can return the given merchants items' do
