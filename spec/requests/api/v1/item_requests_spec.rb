@@ -87,12 +87,12 @@ describe "Items API" do
     merchant = create(:merchant)
     item = create(:item, merchant_id: merchant.id)
 
-    get "/api/v1/items/#{merchant.id}/#{item.id}"
+    get "/api/v1/items/#{item.id}/merchants"
     
     expect(response).to be_successful
 
     items_merchant = JSON.parse(response.body, symbolize_names: true)
-    merch_attr = items_merchant[:data].first[:attributes]
+    merch_attr = items_merchant[:data][:attributes]
 
     expect(merch_attr[:name]).to eq(merchant.name)
   end
