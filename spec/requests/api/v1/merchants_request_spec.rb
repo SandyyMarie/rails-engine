@@ -44,7 +44,7 @@ describe "Merchants API" do
     expect(response).to be_successful
     # require 'pry'; binding.pry
     expect(merchant_items[:data].first[:type]).to eq("item")
-    expect(merchant_items[:data].first[:relationships][:merchant][:data][:id]).to eq(id.to_s)
+    expect(merchant_items[:data].first[:attributes][:merchant_id]).to eq(id)
     expect(merchant_items[:data].first[:attributes][:name]).to be_a(String)
     expect(merchant_items[:data].first[:attributes][:name]).to be_a(String)
     expect(merchant_items[:data].first[:attributes][:description]).to be_a(String)
