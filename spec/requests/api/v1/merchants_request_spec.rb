@@ -1,5 +1,4 @@
 require 'rails_helper'
-require 'pry'
 
 describe "Merchants API" do
   it "sends a list of merchants #index" do
@@ -33,6 +32,26 @@ describe "Merchants API" do
 
     # expect(book).to have_key(:author)
     expect(merchant[:data][:type]).to eq("merchant")
+  end
+
+  it 'can return the given merchants items' do
+    id = create(:merchant).id
+    items = create_list(:item, 3, merchant_id: id)
+
+    get "/api/v1/merchants/#{id}/items"
+    
+    expect(response).to be_successful
+
+    merchant_items = JSON.parse(response.body, symbolize_names: true)
+    merch_attr = merchant_items[:data].first[:attributes] #testing first merchant only
+
+    expect(merchant_items[:data].first[:type]).to eq("item")
+    expect(merch_attr[:merchant_id]).to eq(id)
+    expect(merch_attr[:name]).to be_a(String)
+    expect(merch_attr[:name]).to be_a(String)
+    expect(merch_attr[:description]).to be_a(String)
+    expect(merch_attr[:unit_price]).to be_a(Float)
+
   end
   
 end
