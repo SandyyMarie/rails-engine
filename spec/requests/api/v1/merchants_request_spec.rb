@@ -37,14 +37,15 @@ describe "Merchants API" do
 
   it 'can return the given merchants items' do
     id = create(:merchant).id
-
+    items = create_list(:item, 3, merchant_id: id)
+    require 'pry'; binding.pry
     get "/api/v1/merchants/#{id}/items"
     merchant_items = JSON.parse(response.body, symbolize_names: true)
     expect(response).to be_successful
-    
+
     expect(merchant_items[:data][:attributes][:name]).to be_a(String)
     expect(merchant_items[:data][:attributes][:description]).to be_a(String)
-    expect(merchant_items[:data][:attributes][:unit_price]).to be_a(Integer)
+    expect(merchant_items[:data][:attributes][:unit_price]).to be_a(Float)
 
   end
   
