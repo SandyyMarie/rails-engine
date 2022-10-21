@@ -35,6 +35,7 @@ group :development, :test do
   gem 'faker'
   gem 'figaro'
   gem 'pry'
+  gem 'jsonapi-serializer'
 end
 
 group :development do
