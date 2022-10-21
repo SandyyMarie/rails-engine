@@ -1,24 +1,31 @@
-# README
+## Rails Engine Lite - Requirements
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+You are working for a company developing an E-Commerce Application. Your team is working in a service-oriented architecture, meaning the front and back ends of this application are separate and communicate via APIs. Your job is to expose the data that powers the site through an API that the front end will consume.
 
-Things you may want to cover:
+### Rails Engine Lite - Overview
+[Project Page](https://backend.turing.edu/module3/projects/rails_engine_lite/)
 
-* Ruby version
+* Expose an API
+* Use serializers to format JSON responses 
+* Test API exposure 
+* Use SQL and AR to gather data 
 
-* System dependencies
+### Tech Stack
 
-* Configuration
+* Ruby on Rails
+* Postman
+* GitHub
 
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+### Accessible exposed RESTful API endpoints
+<ul>
+<li> Merchants: </li>
+  <ul>
+   <li> get all merchants </li>
+   <li> get one merchant </li>
+   <li> get all items for a given merchant ID </li>
+  </ul>
+<li> Items: </li>
+  <ul>
+  <li> get all items </li>
+  </ul>
+</ul>
