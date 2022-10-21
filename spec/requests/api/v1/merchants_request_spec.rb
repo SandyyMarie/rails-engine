@@ -34,5 +34,18 @@ describe "Merchants API" do
     # expect(book).to have_key(:author)
     expect(merchant[:data][:type]).to eq("merchant")
   end
+
+  it 'can return the given merchants items' do
+    id = create(:merchant).id
+
+    get "/api/v1/merchants/#{id}/items"
+    merchant_items = JSON.parse(response.body, symbolize_names: true)
+    expect(response).to be_successful
+    
+    expect(merchant_items[:data][:attributes][:name]).to be_a(String)
+    expect(merchant_items[:data][:attributes][:description]).to be_a(String)
+    expect(merchant_items[:data][:attributes][:unit_price]).to be_a(Integer)
+
+  end
   
 end
