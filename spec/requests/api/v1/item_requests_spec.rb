@@ -35,4 +35,24 @@ describe "Items API" do
     expect(item_attr[:unit_price]).to be_a(Float)
     expect(item_attr[:merchant_id]).to be_a(Integer)
   end
+
+  it 'can create an item' do
+    merchant = create(:merchant)
+    item_params = ({
+      name: "Winter Boots",
+      description: "The warmest snow boots in town",
+      unit_price: 175,
+      merchant_id: merchant.id
+    })
+    post "/api/v1/items", params: {item: item_params }, as: :json
+
+    new_item = Item.last
+
+    expect(response).to be_successful
+
+    expect(new_item[:name]).to eq(item_params[:name])
+    expect(new_item[:description]).to eq(item_params[:description])
+    expect(new_item[:unit_price]).to eq(item_params[:unit_price])
+    expect(new_item[:merchant_id]).to eq(item_params[:merchant_id])
+  end
 end
