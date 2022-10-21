@@ -22,15 +22,14 @@ describe "Items API" do
 
   it 'can return a single item' do
     item = create(:item)
-
     get "/api/v1/items/#{item.id}"
 
     expect(response).to be_successful
 
     items_response = JSON.parse(response.body, symbolize_names: true)
     item_attr = items_response[:data][:attributes]
-    
-    expect(items_response[:data].count).to eq(5)
+
+    expect(item_attr.count).to eq(4)
     expect(item_attr[:name]).to be_a(String)
     expect(item_attr[:description]).to be_a(String)
     expect(item_attr[:unit_price]).to be_a(Float)
