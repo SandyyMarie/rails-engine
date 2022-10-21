@@ -29,6 +29,8 @@ You are working for a company developing an E-Commerce Application. Your team is
   <li> get all items </li>
   <li> get one item </li>
   <li> create an item </li>
-  <li> destroy an item </li>
+  <li> delete an item </li>
+  <li> edit an item </li>
+  <li> get the merchant data for a given item ID </li>
   </ul>
 </ul>
