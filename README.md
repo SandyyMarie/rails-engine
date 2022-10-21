@@ -27,5 +27,8 @@ You are working for a company developing an E-Commerce Application. Your team is
 <li> Items: </li>
   <ul>
   <li> get all items </li>
+  <li> get one item </li>
+  <li> create an item </li>
+  <li> destroy an item </li>
   </ul>
 </ul>
