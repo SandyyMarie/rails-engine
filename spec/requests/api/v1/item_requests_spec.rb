@@ -59,9 +59,9 @@ describe "Items API" do
   it 'can destroy an item' do
     item = create(:item)
 
-    expect(Book.count).to eq(1)
+    expect(Item.count).to eq(1)
 
-    delete "/api/v1/books/#{item.id}"
+    delete "/api/v1/items/#{item.id}"
 
     expect(response).to be_successful
     expect(Item.count).to eq(0)
