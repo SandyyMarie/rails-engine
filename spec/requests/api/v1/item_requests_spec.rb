@@ -91,7 +91,9 @@ describe "Items API" do
     
     expect(response).to be_successful
 
-    merchant_items = JSON.parse(response.body, symbolize_names: true)
-    merch_attr = merchant_items[:data].first[:attributes] #testing first merchant only
+    items_merchant = JSON.parse(response.body, symbolize_names: true)
+    merch_attr = items_merchant[:data].first[:attributes]
+
+    expect(merch_attr[:name]).to eq(merchant.name)
   end
 end
