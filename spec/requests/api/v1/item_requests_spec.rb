@@ -50,10 +50,9 @@ describe "Items API" do
 
     expect(response).to be_successful
 
-    expect(item_attr.count).to eq(4)
-    expect(item_attr[:name]).to be_a(item_params[:name])
-    expect(item_attr[:description]).to be_a(item_params[:description])
-    expect(item_attr[:unit_price]).to be_a(item_params[:unit_price])
-    expect(item_attr[:merchant_id]).to be_a(item_params[:merchant_id])
+    expect(new_item[:name]).to eq(item_params[:name])
+    expect(new_item[:description]).to eq(item_params[:description])
+    expect(new_item[:unit_price]).to eq(item_params[:unit_price])
+    expect(new_item[:merchant_id]).to eq(item_params[:merchant_id])
   end
 end
