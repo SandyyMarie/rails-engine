@@ -19,4 +19,20 @@ describe "Items API" do
     expect(item_attr[:merchant_id]).to be_a(Integer)
 
   end
+
+  it 'can return a single item' do
+    item = create(:item)
+    get "/api/v1/items/#{item.id}"
+
+    expect(response).to be_successful
+
+    items_response = JSON.parse(response.body, symbolize_names: true)
+    item_attr = items_response[:data][:attributes]
+
+    expect(item_attr.count).to eq(4)
+    expect(item_attr[:name]).to be_a(String)
+    expect(item_attr[:description]).to be_a(String)
+    expect(item_attr[:unit_price]).to be_a(Float)
+    expect(item_attr[:merchant_id]).to be_a(Integer)
+  end
 end
