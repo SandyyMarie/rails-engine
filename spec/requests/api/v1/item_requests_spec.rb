@@ -20,7 +20,7 @@ describe "Items API" do
 
   end
 
-  it 'can return a single item' do
+  it 'can return a single item #show' do
     item = create(:item)
     get "/api/v1/items/#{item.id}"
 
@@ -34,6 +34,13 @@ describe "Items API" do
     expect(item_attr[:description]).to be_a(String)
     expect(item_attr[:unit_price]).to be_a(Float)
     expect(item_attr[:merchant_id]).to be_a(Integer)
+  end
+
+  it 'will sad path return error if item doesnt exist to #show' do
+    merchant = create(:merchant)
+    get "/api/v1/items/#{merchant.id + 1}" #purposeful bad id call
+
+    expect(response.status).to eq(404)
   end
 
   it 'can create an item' do
@@ -74,13 +81,27 @@ describe "Items API" do
     item_params = { name: "Snow Shovel" }
     headers = {"CONTENT_TYPE" => "application/json"}
 
-    # We include this header to make sure that these params are passed as JSON rather than as plain text
     patch "/api/v1/items/#{id}", headers: headers, params: JSON.generate({item: item_params})
     item = Item.find_by(id: id)
 
     expect(response).to be_successful
     expect(item.name).to_not eq(previous_name)
     expect(item.name).to eq("Snow Shovel")
+  end
+
+  it 'can sad path return 404 error when failing to update #update' do
+    merchant = create(:merchant)
+    item = create(:item, merchant_id: merchant.id)
+    item_params = {
+      name: "snow shoes",
+      description: "the best snow shoes in town",
+      unit_price: "1 million dollars",
+      merchant_id: 999999
+    } #sending integer instead of string
+    headers = {"CONTENT_TYPE" => "application/json"}
+
+    patch "/api/v1/items/#{item.id}", headers: headers, params: JSON.generate({item: item_params})
+    expect(response.status).to eq(404)
   end
 
   it 'can return a given items merchant data' do
