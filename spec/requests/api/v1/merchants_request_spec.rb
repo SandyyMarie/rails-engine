@@ -1,5 +1,4 @@
 require 'rails_helper'
-require 'pry'
 
 describe "Merchants API" do
   it "sends a list of merchants #index" do
@@ -38,17 +37,20 @@ describe "Merchants API" do
   it 'can return the given merchants items' do
     id = create(:merchant).id
     items = create_list(:item, 3, merchant_id: id)
-    get "/api/v1/merchants/#{id}/items"
-    merchant_items = JSON.parse(response.body, symbolize_names: true)
 
+    get "/api/v1/merchants/#{id}/items"
+    
     expect(response).to be_successful
-    # require 'pry'; binding.pry
+
+    merchant_items = JSON.parse(response.body, symbolize_names: true)
+    merch_attr = merchant_items[:data].first[:attributes] #testing first merchant only
+
     expect(merchant_items[:data].first[:type]).to eq("item")
-    expect(merchant_items[:data].first[:attributes][:merchant_id]).to eq(id)
-    expect(merchant_items[:data].first[:attributes][:name]).to be_a(String)
-    expect(merchant_items[:data].first[:attributes][:name]).to be_a(String)
-    expect(merchant_items[:data].first[:attributes][:description]).to be_a(String)
-    expect(merchant_items[:data].first[:attributes][:unit_price]).to be_a(Float)
+    expect(merch_attr[:merchant_id]).to eq(id)
+    expect(merch_attr[:name]).to be_a(String)
+    expect(merch_attr[:name]).to be_a(String)
+    expect(merch_attr[:description]).to be_a(String)
+    expect(merch_attr[:unit_price]).to be_a(Float)
 
   end
   
